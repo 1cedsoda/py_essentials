@@ -13,7 +13,7 @@ functions:
     
 # Printing with color (advancedPrint.py)
 required python modules:
-    os (standart)
+    sys (standart)
 functions:
     effect(effect)                     execute this to set the color effect or reset the color
                                        for the following text prints. (blue, red, bold, reset, ...)
