@@ -10,3 +10,13 @@ functions:
     getLenght(file)                    returns the amount of lines in a file
     delete(file)                       deletes a file
     create(file)                       creates a file
+    
+# Printing with color (advancedPrint.py)
+required python modules:
+    os (standart)
+functions:
+    effect(effect)                     execute this to set the color effect or reset the color
+                                       for the following text prints. (blue, red, bold, reset, ...)
+    effectXY(x, y)                     very special custom printing effects. (look into the code)
+    clean()                            cleans up the terminal by creating 100 empty lines.
+    
