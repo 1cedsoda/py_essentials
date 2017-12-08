@@ -69,8 +69,30 @@ class List:
         else:
             return returnlist
 
-    def randomize(self):
-        return random.shuffle(self.core)
+    def randomize(self, apply=True):
+        temp = self.core
+        randomized = []
+        for i in range(len(temp)*-1+1,1):
+            value =temp.pop(random.randint(0, len(temp)-1))
+            randomized.append(value)
+        if apply:
+            self.core = randomized
+        return randomized
 
-    def poprandom(self):
-        return self.core.pop(random.randint(0, len(self.core)))
+    def poprandom(self, apply=True):
+        if apply:
+            return self.core.pop(random.randint(0, len(self.core)-1))
+        else:
+            temp = self.core
+            return temp.pop(random.randint(0, len(self.core)-1))
+
+
+    def mirror(self, apply=True):
+        returnlist = []
+        lenght = len(self.core)
+        for x in range(0, lenght):
+            x = lenght - x - 1
+            returnlist.append(self.core[x])
+        if apply:
+            self.core = returnlist
+        return returnlist
