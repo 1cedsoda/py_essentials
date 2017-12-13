@@ -3,7 +3,8 @@ import os
 import platform
 import json
 
-#generates any checksum of a file
+
+# generates any checksum of a file
 def genFileChecksum(filename, algorythm='sha1', printing=False):
     if algorythm == "sha256":
         hasher = hashlib.sha256()
@@ -25,17 +26,18 @@ def genFileChecksum(filename, algorythm='sha1', printing=False):
                     hasher.update(buf)
                     buf = afile.read(65536)
             checksum = hasher.hexdigest()
-            if not printing == False:
-                print(filename+" - "+checksum)
+            if printing:
+                print(filename + " - " + checksum)
             return checksum
         except PermissionError:
             return "ERROR"
     except Exception as e:
         print('ERROR fileHandler.py genFileChecksum(filename,algorythm)\n      ', e)
-        #print(filename+" - ERROR")
+        # print(filename+" - ERROR")
         return "ERROR"
 
-#return True if a file excists and False if not
+
+# return True if a file excists and False if not
 def isFile(object):
     try:
         os.listdir(object)
@@ -43,7 +45,8 @@ def isFile(object):
     except Exception:
         return True
 
-#creates a treeview of a directory with the filehshes
+
+# creates a treeview of a directory with the filehshes
 def createHashtree(directory, algorythm='sha1'):
     if platform.system() == 'Linux':
         slash = '/'
@@ -54,7 +57,7 @@ def createHashtree(directory, algorythm='sha1'):
     jsonstring = '{'
     objects = os.listdir(directory)
     for i in range(0, len(objects)):
-        filename = directory+objects[i]
+        filename = directory + objects[i]
         if isFile(filename):
             checksum = genFileChecksum(filename, algorythm)
             jsonstring = jsonstring + '"' + objects[i] + '":"' + str(checksum) + '",'
@@ -63,15 +66,15 @@ def createHashtree(directory, algorythm='sha1'):
                 slash = '/'
             elif platform.system() == 'Windows':
                 slash = '\\'
-            jsonstring = jsonstring + '"' + objects[i] + '":' + createHashtree(directory+objects[i]+slash, algorythm) + ','
-    if jsonstring[-1] =="{":
+            jsonstring = jsonstring + '"' + objects[i] + '":' + createHashtree(directory + objects[i] + slash, algorythm) + ','
+    if jsonstring[-1] == "{":
         jsonstring = jsonstring + "}"
     else:
         jsonstring = jsonstring[:-1] + "}"
-    return  jsonstring
+    return jsonstring
 
 if __name__ == "__main__":
-    directory = os.path.dirname(os.path.realpath(__file__)) #working directory
+    directory = os.path.dirname(os.path.realpath(__file__))  # working directory
     data = createHashtree(directory, "md5")
     data = json.loads(data)
     print(json.dumps(data, sort_keys=True, indent=4))
