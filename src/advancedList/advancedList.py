@@ -90,7 +90,11 @@ class List:
     def mirror(self, apply=True):
         returnlist = []
         lenght = len(self.core)
+<<<<<<< HEAD
         for x in range(lenght):
+=======
+        for x in range(0, lenght):
+>>>>>>> bfb91dc323d330bd464faf1104c8563d8a6ae545
             x = lenght - x - 1
             returnlist.append(self.core[x])
         if apply:
