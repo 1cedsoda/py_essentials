@@ -4,50 +4,46 @@ import platform
 import json
 
 
-# generates any checksum of a file
-def genFileChecksum(filename, algorythm='sha1', printing=False):
-    if algorythm == "sha256":
+# generates common checksums of a file
+def genFileChecksum(filePath, algorithm='sha1', printing=False):
+    if algorithm.lower() == "sha256":
         hasher = hashlib.sha256()
-    elif algorythm == "sha512":
+    elif algorithm.lower() == "sha512":
         hasher = hashlib.sha512()
-    elif algorythm == "sha1":
+    elif algorithm.lower() == "sha1":
         hasher = hashlib.sha1()
-    elif algorythm == "md5":
+    elif algorithm.lower() == "md5":
         hasher = hashlib.md5()
     else:
-        e = "CustomError: Algorythm", algorythm, 'is not supported. Sha1 will be used. Supported algorythms are "sha1", "sha256" and "sha512".'
-        print('ERROR fileHandler.py genFileChecksum(filename,algorythm)\n      ', e)
+        e = "CustomError: Algorithm", algorithm, 'is not supported. Sha1 will be used. Supported algorithms are "sha1", "sha256" and "sha512".'
+        print('ERROR fileHandler.py genFileChecksum(filePath,algorithm)\n      ', e)
         hasher = hashlib.sha1()
     try:
         try:
-            with open(filename, 'rb') as afile:
+            with open(filePath, 'rb') as afile:
                 buf = afile.read(65536)
                 while len(buf) > 0:
                     hasher.update(buf)
                     buf = afile.read(65536)
             checksum = hasher.hexdigest()
             if printing:
-                print(filename + " - " + checksum)
+                print(filePath + " - " + checksum)
             return checksum
         except PermissionError:
             return "ERROR"
     except Exception as e:
-        print('ERROR fileHandler.py genFileChecksum(filename,algorythm)\n      ', e)
-        # print(filename+" - ERROR")
+        print('ERROR fileHandler.py genFileChecksum(filePath,algorithm)\n      ', e)
+        # print(filePath + " - ERROR")
         return "ERROR"
 
 
-# return True if a file excists and False if not
+# return True if a file exists and False if not
 def isFile(object):
-    try:
-        os.listdir(object)
-        return False
-    except Exception:
-        return True
+    return os.path.isfile(object)
 
 
-# creates a treeview of a directory with the filehshes
-def createHashtree(directory, algorythm='sha1'):
+# creates a treeview of a directory with the filehashes
+def createHashtree(directory, algorithm='sha1'):
     if platform.system() == 'Linux':
         slash = '/'
     elif platform.system() == 'Windows':
@@ -56,17 +52,17 @@ def createHashtree(directory, algorythm='sha1'):
     checksum = ''
     jsonstring = '{'
     objects = os.listdir(directory)
-    for i in range(0, len(objects)):
+    for i in range(len(objects)):
         filename = directory + objects[i]
         if isFile(filename):
-            checksum = genFileChecksum(filename, algorythm)
+            checksum = genFileChecksum(filename, algorithm)
             jsonstring = jsonstring + '"' + objects[i] + '":"' + str(checksum) + '",'
         else:
             if platform.system() == 'Linux':
                 slash = '/'
             elif platform.system() == 'Windows':
                 slash = '\\'
-            jsonstring = jsonstring + '"' + objects[i] + '":' + createHashtree(directory + objects[i] + slash, algorythm) + ','
+            jsonstring = jsonstring + '"' + objects[i] + '":' + createHashtree(directory + objects[i] + slash, algorithm) + ','
     if jsonstring[-1] == "{":
         jsonstring = jsonstring + "}"
     else:

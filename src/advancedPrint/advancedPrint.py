@@ -1,7 +1,19 @@
 import sys
 
+class effects:
+    RED = "red"
+    BLUE = "blue"
+    DARKBLUE = "darkblue"
+    CYAN = "cyan"
+    YELLOW = "yellow"
+    PURPLE = "purple"
+    GREEN = "green"
+    RESET = "reset"
+    BOLD = "bold"
+    REVERSE = "reverse"
 
-def clean():
+
+def clearConsole():
     print("\n" * 100)
 
 
@@ -30,6 +42,7 @@ def effect(effect):
 
 def effectXY(x, y):
     return sys.stdout.write("\033[" + str(x) + ";" + str(y) + "m")
+
 
 if __name__ == "__main__":  # see the possibilities of printing
     for y in range(0, 108):
