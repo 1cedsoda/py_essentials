@@ -7,17 +7,17 @@ from py_essentials import xcptns
 # generates any checksum of a file
 
 
-def fileChecksum(filename, algorythm='sha1', printing=False):
-    if algorythm == "sha256":
+def fileChecksum(filename, algorithm='sha1', printing=False):
+    if algorithm == "sha256":
         hasher = hashlib.sha256()
-    elif algorythm == "sha512":
+    elif algorithm == "sha512":
         hasher = hashlib.sha512()
-    elif algorythm == "sha1":
+    elif algorithm == "sha1":
         hasher = hashlib.sha1()
-    elif algorythm == "md5":
+    elif algorithm == "md5":
         hasher = hashlib.md5()
     else:
-        raise xcptns.UnsupportedHashingAlgorythm("fileChecksum()", algorythm, ["md5", "sha1", "sha265", "sha512"])
+        raise xcptns.UnsupportedHashingalgorithm("fileChecksum()", algorithm, ["md5", "sha1", "sha265", "sha512"])
     try:
         try:
             with open(filename, 'rb') as afile:
@@ -37,34 +37,22 @@ def fileChecksum(filename, algorythm='sha1', printing=False):
 # generates any checksum of a file
 
 
-def checksum(filename, algorythm='sha1', printing=False):
-    if algorythm == "sha256":
-        hasher = hashlib.sha256()
-    elif algorythm == "sha512":
-        hasher = hashlib.sha512()
-    elif algorythm == "sha1":
-        hasher = hashlib.sha1()
-    elif algorythm == "md5":
-        hasher = hashlib.md5()
+def checksum(data, algorithm='sha1', printing=False):
+    if algorithm == "sha256":
+        hasher = hashlib.sha256(data.encode())
+    elif algorithm == "sha512":
+        hasher = hashlib.sha512(data.encode())
+    elif algorithm == "sha1":
+        hasher = hashlib.sha1(data.encode())
+    elif algorithm == "md5":
+        hasher = hashlib.md5(data.encode())
     else:
-        raise xcptns.UnsupportedHashingAlgorythm("fileChecksum()", algorythm, ["md5", "sha1", "sha265", "sha512"])
-    try:
-        try:
-            with open(filename, 'rb') as afile:
-                buf = afile.read(65536)
-                while len(buf) > 0:
-                    hasher.update(buf)
-                    buf = afile.read(65536)
-            checksum = hasher.hexdigest()
-            if printing:
-                print(filename + " - " + checksum)
-            return checksum
-        except PermissionError as e:
-            raise xcptns.StrangeError("fileChecksum()", e)
-    except Exception as e:
-        raise xcptns.StrangeError("fileChecksum()", e)
-
-
+        raise xcptns.UnsupportedHashingalgorithm("fileChecksum()", algorithm, ["md5", "sha1", "sha265", "sha512"])
+    checksum = hashlib.hasher.hexdigest()
+    if printing:
+        print(checksum)
+    return checksum
+    
 # return True if a file excists and False if not
 def isFile(object):
     try:
@@ -75,7 +63,7 @@ def isFile(object):
 
 
 # creates a treeview of a directory with the filehshes
-def createHashtree(directory, algorythm='sha1'):
+def createHashtree(directory, algorithm='sha1'):
     if platform.system() == 'Linux':
         slash = '/'
     elif platform.system() == 'Windows':
@@ -87,14 +75,14 @@ def createHashtree(directory, algorythm='sha1'):
     for i in range(0, len(objects)):
         filename = directory + objects[i]
         if isFile(filename):
-            checksum = fileChecksum(filename, algorythm)
+            checksum = fileChecksum(filename, algorithm)
             jsonstring = jsonstring + '"' + objects[i] + '":"' + str(checksum) + '",'
         else:
             if platform.system() == 'Linux':
                 slash = '/'
             elif platform.system() == 'Windows':
                 slash = '\\'
-            jsonstring = jsonstring + '"' + objects[i] + '":' + createHashtree(directory + objects[i] + slash, algorythm) + ','
+            jsonstring = jsonstring + '"' + objects[i] + '":' + createHashtree(directory + objects[i] + slash, algorithm) + ','
     if jsonstring[-1] == "{":
         jsonstring = jsonstring + "}"
     else:
