@@ -2,9 +2,11 @@ import hashlib
 import os
 import platform
 import json
-import py_essentials.xcptns
+from py_essentials import xcptns
 
 # generates any checksum of a file
+
+
 def fileChecksum(filename, algorythm='sha1', printing=False):
     if algorythm == "sha256":
         hasher = hashlib.sha256()
@@ -15,7 +17,7 @@ def fileChecksum(filename, algorythm='sha1', printing=False):
     elif algorythm == "md5":
         hasher = hashlib.md5()
     else:
-        raise xcptns.ImportError("fileChecksum()", algorythm, ["md5", "sha1", "sha265", "sha512"])
+        raise xcptns.UnsupportedHashingAlgorythm("fileChecksum()", algorythm, ["md5", "sha1", "sha265", "sha512"])
     try:
         try:
             with open(filename, 'rb') as afile:
@@ -30,9 +32,11 @@ def fileChecksum(filename, algorythm='sha1', printing=False):
         except PermissionError:
             return "ERROR"
     except Exception as e:
-        raise exception.StrangeError("fileChecksum()", e)
+        raise xcptns.StrangeError("fileChecksum()", e)
 
 # generates any checksum of a file
+
+
 def checksum(filename, algorythm='sha1', printing=False):
     if algorythm == "sha256":
         hasher = hashlib.sha256()
@@ -43,9 +47,7 @@ def checksum(filename, algorythm='sha1', printing=False):
     elif algorythm == "md5":
         hasher = hashlib.md5()
     else:
-        e = "CustomError: Algorythm", algorythm, 'is not supported. Sha1 will be used. Supported algorythms are "sha1", "sha256" and "sha512".'
-        print('ERROR fileHandler.py genFileChecksum(filename,algorythm)\n      ', e)
-        hasher = hashlib.sha1()
+        raise xcptns.UnsupportedHashingAlgorythm("fileChecksum()", algorythm, ["md5", "sha1", "sha265", "sha512"])
     try:
         try:
             with open(filename, 'rb') as afile:

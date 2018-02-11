@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-#
-import py_essentials.xcptns
+from py_essentials import xcptns
 
 def checkup():
     fails = []
