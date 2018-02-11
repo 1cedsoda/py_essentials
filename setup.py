@@ -1,14 +1,14 @@
 from distutils.core import setup
 setup(
-  name = 'py_essentails',
-  packages = ['py_essentails'],
-  version = '1.4.4',
+  name = 'py_essentials',
+  packages = ['py_essentials'],
+  version = '1.4.5',
   description = 'A collection of simple and useful python algorythms and functions.',
   author = 'Phyyyl',
   author_email = 'internetz@eclipso.de',
-  url = 'https://github.com/phyyyl/py_essentails',
-  download_url = 'https://github.com/phyyyl/py_essentails/archive/1.4.4.tar.gz',
-  keywords = ['py-essentails', 'essentails', 'file', 'random', 'hash', 'simple', 'advancedlist', 'advanced', 'list', 'pretty', 'printing', 'prettyprinting', 'random', 'string', 'hashtree'],
+  url = 'https://github.com/phyyyl/py_essentials',
+  download_url = 'https://github.com/phyyyl/py_essentials/archive/1.4.5.tar.gz',
+  keywords = ['py-essentials', 'essentials', 'file', 'random', 'hash', 'simple', 'advancedlist', 'advanced', 'list', 'pretty', 'printing', 'prettyprinting', 'random', 'string', 'hashtree'],
   classifiers = [],
   install_requires=[]
 )
