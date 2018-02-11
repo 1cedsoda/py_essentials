@@ -2,7 +2,7 @@ import hashlib
 import os
 import platform
 import json
-import xcptns
+import py_essentials.xcptns
 
 # generates any checksum of a file
 def fileChecksum(filename, algorythm='sha1', printing=False):
