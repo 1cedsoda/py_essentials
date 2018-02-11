@@ -1,4 +1,4 @@
-# python-essentails
+# python-essentials
 
 A collection of simple and useful python algorythms and functions.
 
