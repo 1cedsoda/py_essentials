@@ -31,7 +31,7 @@ class List:
         if type(theslice) is int:
             theslice = [str(theslice), str(theslice), "None"]
         else:
-            theslice = str(theslice).replace(" ", "").split("(")[1].split(")")[0].split(",")
+            theslice = str(theslice)[6:-1].replace(" ", "").split(",")
         return theslice[0], theslice[1], theslice[2]
 
     def __validateIndex(self, s):
@@ -49,8 +49,12 @@ class List:
         return totalsteps
 
     def __getitem__(self, item):
-        relativeindex = int(item[1])
-        s0, s1, s2 = self.__sliceSlicer(item[0])
+        if isinstance(item, tuple):
+            relativeindex = item[-1]
+            s0, s1, s2 = self.__sliceSlicer(item[0])
+        else:
+            relativeindex = 0
+            s0, s1, s2 = self.__sliceSlicer(item)
         s0 = self.__unrelativateIndex(s0, relativeindex)  # add the relative index to the index list
         s1 = self.__unrelativateIndex(s1, relativeindex)  # add the relative index to the index list
         totalsteps = self.__totalSteps(s0, s1)  # calculate the total steps between the two indexes
