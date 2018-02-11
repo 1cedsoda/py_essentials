@@ -3,7 +3,7 @@ setup(
   name = 'py_essentials',
   packages = ['py_essentials'],
   version = '1.4.12',
-  description = 'A collection of simple and useful python algorythms and functions.',
+  description = 'A collection of simple and useful python algorithms and functions.',
   author = 'Phyyyl',
   author_email = 'internetz@eclipso.de',
   url = 'https://github.com/phyyyl/py_essentials',
