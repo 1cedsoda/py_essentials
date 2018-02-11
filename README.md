@@ -8,7 +8,7 @@ A collection of simple and useful python algorythms and functions.
 ```shell
 pip3 install py_essentials
 ```
-More Informations about [nstallation, Download, Importing & more](https://github.com/phyyyl/py_essentials/wiki/Installation,-Download,-Importing-&-more)
+More informations about [Installation, Download, Importing & more](https://github.com/phyyyl/py_essentials/wiki/Installation,-Download,-Importing-&-more)
 
 # Wiki
 Find out more about the functionality in our [wiki](https://github.com/phyyyl/py_essentials/wiki).
