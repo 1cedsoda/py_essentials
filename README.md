@@ -4,5 +4,11 @@
 
 A collection of simple and useful python algorythms and functions.
 
-# More Informations
+# PyPI installation
+```shell
+pip3 install py_essentials
+```
+More Informations about [nstallation, Download, Importing & more](https://github.com/phyyyl/py_essentials/wiki/Installation,-Download,-Importing-&-more)
+
+# Wiki
 about the functionality and more are available in our [wiki](https://github.com/phyyyl/py_essentials/wiki).
