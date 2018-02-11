@@ -4,8 +4,8 @@ setup.py
 py_essentials/__init__.py
 py_essentials/advancedList.py
 py_essentials/checkup.py
-py_essentials/xcptns.py
 py_essentials/fileHandler.py
 py_essentials/hashing.py
 py_essentials/prettyPrinting.py
 py_essentials/simpleRandom.py
+py_essentials/xcptns.py

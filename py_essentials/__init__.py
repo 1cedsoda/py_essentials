@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import xcptns
-import checkup
+import py_essentials.xcptns
+import py_essentials.checkup
 checkup.checkup()
 
-import advancedList
-import prettyPrinting
-import fileHandler
-import hashing
-import simpleRandom
+import py_essentials.advancedList
+import py_essentials.prettyPrinting
+import py_essentials.fileHandler
+import py_essentials.hashing
+import py_essentials.simpleRandom
