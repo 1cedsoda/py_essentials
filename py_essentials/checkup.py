@@ -3,7 +3,7 @@
 import exceptions
 
 def checkup():
-    fails = ["json"]
+    fails = []
     try:
         import json
     except:
