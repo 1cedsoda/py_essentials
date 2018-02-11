@@ -4,14 +4,9 @@
 
 A collection of simple and useful python algorythms and functions.
 
-# Installation
-```shell
-pip3 install py_essentials
-```
-# Usage
-```python
-import py_essentials
-```
+# More Informations
+are available in our wiki(https://github.com/phyyyl/py_essentials/wiki).
+
 # advancedList
 Contains a class called List. It's an extension to normal lists.
   - relative Indexing
