@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-#
-import exceptions
+import xcptns
 
 def checkup():
     fails = []
@@ -35,4 +35,4 @@ def checkup():
         fails.append("hashlib")
 
     if len(fails) != 0:
-        raise exceptions.ImportError(fails)
+        raise xcptns.ImportError(fails)

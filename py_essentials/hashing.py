@@ -2,7 +2,7 @@ import hashlib
 import os
 import platform
 import json
-import exceptions
+import xcptns
 
 # generates any checksum of a file
 def fileChecksum(filename, algorythm='sha1', printing=False):
@@ -15,7 +15,7 @@ def fileChecksum(filename, algorythm='sha1', printing=False):
     elif algorythm == "md5":
         hasher = hashlib.md5()
     else:
-        raise exceptions.ImportError("fileChecksum()", algorythm, ["md5", "sha1", "sha265", "sha512"])
+        raise xcptns.ImportError("fileChecksum()", algorythm, ["md5", "sha1", "sha265", "sha512"])
     try:
         try:
             with open(filename, 'rb') as afile:
@@ -58,9 +58,9 @@ def checksum(filename, algorythm='sha1', printing=False):
                 print(filename + " - " + checksum)
             return checksum
         except PermissionError as e:
-            raise exceptions.StrangeError("fileChecksum()", e)
+            raise xcptns.StrangeError("fileChecksum()", e)
     except Exception as e:
-        raise exceptions.StrangeError("fileChecksum()", e)
+        raise xcptns.StrangeError("fileChecksum()", e)
 
 
 # return True if a file excists and False if not
