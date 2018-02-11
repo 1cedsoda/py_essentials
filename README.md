@@ -14,7 +14,6 @@ import py_essentials
 ```
 # advancedList
   Contains a class called List. It's an extension to normal lists.
-  The features are:
     - relative Indexing
     - endless Indexing
     - endless negative Indexing
@@ -24,7 +23,6 @@ import py_essentials
 
 # fileHandler
   Functions to simplify sealing fith files.
-  The features are:
     - reading files
     - reading json files
     - reading single lines from one file
