@@ -13,24 +13,24 @@ pip3 install py_essentials
 import py_essentials
 ```
 # advancedList
-  Contains a class called List. It's an extension to normal lists.
-    - relative Indexing
-    - endless Indexing
-    - endless negative Indexing
-    - randomization
-    - random poping
-    - mirroring
+Contains a class called List. It's an extension to normal lists.
+  - relative Indexing
+  - endless Indexing
+  - endless negative Indexing
+  - randomization
+  - random poping
+  - mirroring
 
 # fileHandler
-  Functions to simplify sealing fith files.
-    - reading files
-    - reading json files
-    - reading single lines from one file
-    - writing files
-    - writing json files
-    - writing single lines
-    - delete files
-    - create files
+Functions to simplify sealing fith files.
+  - reading files
+  - reading json files
+  - reading single lines from one file
+  - writing files
+  - writing json files
+  - writing single lines
+  - delete files
+  - create files
 
 # hashing
 Functions to simplify hashing files and strings and creating a treeview with filehashes.
