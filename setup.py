@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'py-essentails',
   packages = ['py-essentails'],
-  version = '1.0.0',
+  version = '1.4.0',
   description = 'A collection of simple and useful python algorythms and functions.',
   author = 'Phyyyl',
   author_email = 'internetz@eclipso.de',
