@@ -8,23 +8,23 @@ def clean():
 def effect(effect):
     if effect == "red":
         return sys.stdout.write("\033[1;31m")
-    if effect == "blue":
+    elif effect == "blue":
         return sys.stdout.write("\033[1;34m")
-    if effect == "darkblue":
+    elif effect == "darkblue":
         return sys.stdout.write("\033[1;94m")
-    if effect == "cyan":
+    elif effect == "cyan":
         return sys.stdout.write("\033[1;36m")
-    if effect == "yellow":
+    elif effect == "yellow":
         return sys.stdout.write("\033[1;93m")
-    if effect == "purple":
+    elif effect == "purple":
         return sys.stdout.write("\033[1;35m")
-    if effect == "green":
+    elif effect == "green":
         return sys.stdout.write("\033[1;32m")
-    if effect == "reset":
+    elif effect == "reset":
         return sys.stdout.write("\033[0;0m")
-    if effect == "bold":
+    elif effect == "bold":
         return sys.stdout.write("\033[;1m")
-    if effect == "reverse":
+    elif effect == "reverse":
         return sys.stdout.write("\033[;7m")
 
 
