@@ -1,97 +1,88 @@
+import argparse
 import hashlib
-import os
-import platform
 import json
-from py_essentials import xcptns
+from pathlib import Path
+from typing import Union
 
-# generates any checksum of a file
+ALGO_DICT = {
+ 'sha256': hashlib.sha256(),
+ 'sha512': hashlib.sha512(),
+ 'sha1':  hashlib.sha1(),
+ 'md5': hashlib.md5(),
+}
+SUPPORTED_ALGOS = list(ALGO_DICT)
+CHUNK_SIZE = 64 * 1024
 
 
-def fileChecksum(filename, algorithm='sha1', printing=False):
-    if algorithm == "sha256":
-        hasher = hashlib.sha256()
-    elif algorithm == "sha512":
-        hasher = hashlib.sha512()
-    elif algorithm == "sha1":
-        hasher = hashlib.sha1()
-    elif algorithm == "md5":
-        hasher = hashlib.md5()
+def fileChecksum(
+        file_path: Union[str, Path],
+        algorithm: str = 'sha1',
+        printing: bool = False
+):
+    """generates any checksum of a file"""
+    if type(file_path) is str:
+        file_path = Path(file_path)
+    if algorithm in SUPPORTED_ALGOS:
+        hasher = ALGO_DICT[algorithm]
     else:
-        raise xcptns.UnsupportedHashingalgorithm("fileChecksum()", algorithm, ["md5", "sha1", "sha265", "sha512"])
+        errorMsg = f'Received: `{algorithm}`. Expected one of {", ".join(SUPPORTED_ALGOS)}'
+        raise ValueError(errorMsg)
     try:
-        try:
-            with open(filename, 'rb') as afile:
-                buf = afile.read(65536)
-                while len(buf) > 0:
-                    hasher.update(buf)
-                    buf = afile.read(65536)
-            checksum = hasher.hexdigest()
-            if printing:
-                print(filename + " - " + checksum)
-            return checksum
-        except PermissionError:
-            return "ERROR"
+        with open(file_path, 'rb') as file:
+            buf = file.read(CHUNK_SIZE)
+            while len(buf) > 0:
+                hasher.update(buf)
+                buf = file.read(CHUNK_SIZE)
+        checksum = hasher.hexdigest()
     except Exception as e:
-        raise xcptns.StrangeError("fileChecksum()", e)
-
-# generates any checksum of a file
+        checksum = type(e).__name__
+    if printing:
+        print(f'{file.name} - {checksum}')
+    return checksum
 
 
 def checksum(data, algorithm='sha1', printing=False):
-    if algorithm == "sha256":
-        hasher = hashlib.sha256(data.encode())
-    elif algorithm == "sha512":
-        hasher = hashlib.sha512(data.encode())
-    elif algorithm == "sha1":
-        hasher = hashlib.sha1(data.encode())
-    elif algorithm == "md5":
-        hasher = hashlib.md5(data.encode())
+    if algorithm in SUPPORTED_ALGOS:
+        hasher = ALGO_DICT[algorithm]
     else:
-        raise xcptns.UnsupportedHashingalgorithm("fileChecksum()", algorithm, ["md5", "sha1", "sha265", "sha512"])
-    checksum = hashlib.hasher.hexdigest()
+        errorMsg = f'Received: `{algorithm}`. Expected one of {", ".join(SUPPORTED_ALGOS)}'
+        raise ValueError(errorMsg)
+    if type(data) is not bytes:
+        data = data.encode()
+    checksum = hasher.update(data).hexdigest()
     if printing:
         print(checksum)
     return checksum
-    
-# return True if a file excists and False if not
-def isFile(object):
-    try:
-        os.listdir(object)
-        return False
-    except Exception:
-        return True
 
 
-# creates a treeview of a directory with the filehshes
-def createHashtree(directory, algorithm='sha1'):
-    if platform.system() == 'Linux':
-        slash = '/'
-    elif platform.system() == 'Windows':
-        slash = '\\'
-    directory = directory + slash
-    checksum = ''
-    jsonstring = '{'
-    objects = os.listdir(directory)
-    for i in range(0, len(objects)):
-        filename = directory + objects[i]
-        if isFile(filename):
-            checksum = fileChecksum(filename, algorithm)
-            jsonstring = jsonstring + '"' + objects[i] + '":"' + str(checksum) + '",'
-        else:
-            if platform.system() == 'Linux':
-                slash = '/'
-            elif platform.system() == 'Windows':
-                slash = '\\'
-            jsonstring = jsonstring + '"' + objects[i] + '":' + createHashtree(directory + objects[i] + slash, algorithm) + ','
-    if jsonstring[-1] == "{":
-        jsonstring = jsonstring + "}"
-    else:
-        jsonstring = jsonstring[:-1] + "}"
-    return jsonstring
+def createHashtree(
+        directory: Union[str, Path],
+        algorithm: str = 'sha1'
+):
+    """creates a tree view of a directory with the file hashes"""
+    if type(directory) is str:
+        directory = Path(directory)
+    objects = [obj for obj in directory.iterdir()]
+    hashTree = {
+        obj.name:
+            fileChecksum(obj, algorithm)
+            if obj.is_file()
+            else createHashtree(obj, algorithm)
+        for obj in objects
+    }
+    return hashTree
+
+
+def main(args: argparse.Namespace):
+    directory = Path(args.directory)
+    if not directory.exists():
+        raise FileExistsError(f'{directory} does not seem to exist')
+    data = createHashtree(directory, 'md5')
+    print(json.dumps(data, sort_keys=True, indent=4))
 
 
 if __name__ == "__main__":
-    directory = os.path.dirname(os.path.realpath(__file__))  # working directory
-    data = createHashtree(directory, "md5")
-    data = json.loads(data)
-    print(json.dumps(data, sort_keys=True, indent=4))
+    p = argparse.ArgumentParser()
+    p.add_argument('directory')
+    a = p.parse_args()
+    main(a)

@@ -4,17 +4,20 @@
 import random
 import string
 
-global hexchars
-hexchars = "1234567890abcdef"
+global HEXCHARS
+HEXCHARS = '1234567890abcdef'
 
 
-def randomString(digits, chars=string.ascii_uppercase, numbers=True, uppercase=False):
-    if not numbers:
-        numbers = ""
-    else:
-        numbers = string.digits
-
-    randstring = ''.join(random.choice(chars + string.digits) for _ in range(digits))
+def randomString(
+        digits,
+        chars=string.ascii_uppercase,
+        numbers=True,
+        uppercase=False
+):
+    randstring = ''.join(
+        random.choice(chars + string.digits)
+        for _ in range(digits)
+    )
     if uppercase:
         return randstring
     else:
@@ -29,16 +32,12 @@ def randomRGB():
 
 
 def randomHexColor():
-    global hexchars
-    r = randomString(2, "abcdef")
-    g = randomString(2, "abcdef")
-    b = randomString(2, "abcdef")
+    global HEXCHARS
+    r = randomString(2, 'abcdef')
+    g = randomString(2, 'abcdef')
+    b = randomString(2, 'abcdef')
     return "#" + r + g + b
 
 
 def coinflip():
-    x = random.randint(0, 1)
-    if x == 1:
-        return True
-    else:
-        return False
+    return random.choice([True, False])
