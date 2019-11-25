@@ -29,10 +29,10 @@ def randomRGB():
 
 
 def randomHexColor():
-    global hexchars
-    r = randomString(2, "abcdef")
-    g = randomString(2, "abcdef")
-    b = randomString(2, "abcdef")
+    global HEXCHARS
+    r = randomString(2, 'abcdef')
+    g = randomString(2, 'abcdef')
+    b = randomString(2, 'abcdef')
     return "#" + r + g + b
 
 
