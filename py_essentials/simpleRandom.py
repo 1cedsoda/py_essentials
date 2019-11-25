@@ -8,13 +8,16 @@ global HEXCHARS
 HEXCHARS = '1234567890abcdef'
 
 
-def randomString(digits, chars=string.ascii_uppercase, numbers=True, uppercase=False):
-    if not numbers:
-        numbers = ""
-    else:
-        numbers = string.digits
-
-    randstring = ''.join(random.choice(chars + string.digits) for _ in range(digits))
+def randomString(
+        digits,
+        chars=string.ascii_uppercase,
+        numbers=True,
+        uppercase=False
+):
+    randstring = ''.join(
+        random.choice(chars + string.digits)
+        for _ in range(digits)
+    )
     if uppercase:
         return randstring
     else:
