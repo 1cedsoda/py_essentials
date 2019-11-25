@@ -31,7 +31,9 @@ def effect(effect):
 def effectXY(x, y):
     return sys.stdout.write("\033[" + str(x) + ";" + str(y) + "m")
 
-if __name__ == "__main__":  # see the possibilities of printing
+
+def main():
+    """see the possibilities of printing"""
     for y in range(0, 108):
         try:
             sys.stdout.write("\033[" + str(y) + "m")
@@ -55,3 +57,7 @@ if __name__ == "__main__":  # see the possibilities of printing
             except Exception:
                 continue
     input()
+
+
+if __name__ == "__main__":
+    main()
