@@ -5,10 +5,10 @@ from pathlib import Path
 from typing import Union
 
 ALGO_DICT = {
- "sha256": hashlib.sha256(),
- "sha512": hashlib.sha512(),
- "sha1":  hashlib.sha1(),
- "md5": hashlib.md5(),
+ 'sha256': hashlib.sha256(),
+ 'sha512': hashlib.sha512(),
+ 'sha1':  hashlib.sha1(),
+ 'md5': hashlib.md5(),
 }
 
 SUPPORTED_ALGOS = list(ALGO_DICT)
@@ -80,7 +80,7 @@ def main(args: argparse.Namespace):
     directory = Path(args.directory)
     if not directory.exists():
         raise FileExistsError(f'{directory} does not seem to exist')
-    data = createHashtree(directory, "md5")
+    data = createHashtree(directory, 'md5')
     print(json.dumps(data, sort_keys=True, indent=4))
 
 
