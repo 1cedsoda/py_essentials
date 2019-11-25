@@ -37,8 +37,4 @@ def randomHexColor():
 
 
 def coinflip():
-    x = random.randint(0, 1)
-    if x == 1:
-        return True
-    else:
-        return False
+    return random.choice([True, False])
