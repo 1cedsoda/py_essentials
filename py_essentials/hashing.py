@@ -42,17 +42,14 @@ def fileChecksum(
 
 
 def checksum(data, algorithm='sha1', printing=False):
-    if algorithm == "sha256":
-        hasher = hashlib.sha256(data.encode())
-    elif algorithm == "sha512":
-        hasher = hashlib.sha512(data.encode())
-    elif algorithm == "sha1":
-        hasher = hashlib.sha1(data.encode())
-    elif algorithm == "md5":
-        hasher = hashlib.md5(data.encode())
+    if algorithm in SUPPORTED_ALGOS:
+        hasher = ALGO_DICT[algorithm]
     else:
-        raise ValueError(f'Received: `{algorithm}` but expected one of {", ".join(SUPPORTED_ALGOS)}')
-    checksum = hashlib.hasher.hexdigest()
+        errorMsg = f'Received: `{algorithm}`. Expected one of {", ".join(SUPPORTED_ALGOS)}'
+        raise ValueError(errorMsg)
+    if type(data) is not bytes:
+        data = data.encode()
+    checksum = hasher.update(data).hexdigest()
     if printing:
         print(checksum)
     return checksum
