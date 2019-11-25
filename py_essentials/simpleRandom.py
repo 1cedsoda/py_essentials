@@ -4,8 +4,8 @@
 import random
 import string
 
-global hexchars
-hexchars = "1234567890abcdef"
+global HEXCHARS
+HEXCHARS = '1234567890abcdef'
 
 
 def randomString(digits, chars=string.ascii_uppercase, numbers=True, uppercase=False):
