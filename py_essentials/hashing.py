@@ -10,7 +10,6 @@ ALGO_DICT = {
  'sha1':  hashlib.sha1(),
  'md5': hashlib.md5(),
 }
-
 SUPPORTED_ALGOS = list(ALGO_DICT)
 CHUNK_SIZE = 64 * 1024
 
@@ -26,7 +25,8 @@ def fileChecksum(
     if algorithm in SUPPORTED_ALGOS:
         hasher = ALGO_DICT[algorithm]
     else:
-        raise ValueError(f'Received: `{algorithm}` but expected one of {", ".join(SUPPORTED_ALGOS)}')
+        errorMsg = f'Received: `{algorithm}`. Expected one of {", ".join(SUPPORTED_ALGOS)}'
+        raise ValueError(errorMsg)
     try:
         with open(file_path, 'rb') as file:
             buf = file.read(CHUNK_SIZE)
