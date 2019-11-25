@@ -12,7 +12,7 @@ ALGO_DICT = {
 }
 
 SUPPORTED_ALGOS = list(ALGO_DICT)
-CHUNK_SIZE = 65536
+CHUNK_SIZE = 64 * 1024
 
 
 def fileChecksum(
@@ -34,8 +34,8 @@ def fileChecksum(
                 hasher.update(buf)
                 buf = file.read(CHUNK_SIZE)
         checksum = hasher.hexdigest()
-    except PermissionError:
-        checksum = 'PermissionError'
+    except Exception as e:
+        checksum = type(e).__name__
     if printing:
         print(f'{file.name} - {checksum}')
     return checksum
